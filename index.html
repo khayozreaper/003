@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Do You Marry Me?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        text-align: center;
+        font-family: sans-serif;
+        margin: 0;
+        padding-top: 100px;
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        background-color: #fff0f5;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 30px;
+      }
+
+      .yes-button,
+      #noButton {
+        position: absolute;
+        padding: 12px 24px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        user-select: none;
+        transition: transform 0.3s ease;
+      }
+
+      .yes-button {
+        background-color: #ff69b4;
+        color: white;
+      }
+
+      #noButton {
+        position: relative;
+        background-color: #ccc;
+        color: #333;
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.5em;
+        }
+        .yes-button,
+        #noButton {
+          padding: 10px 20px;
+          font-size: 14px;
+        }
+      }
+
+      @media (min-width: 481px) and (max-width: 768px) {
+        h1 {
+          font-size: 1.75em;
+        }
+        .yes-button,
+        #noButton {
+          padding: 11px 22px;
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <h1>Do you marry me?</h1>
+      <button id="noButton">No</button>
+    </div>
+
+    <script>
+      const today = new Date();
+      const isAllowedDate =
+        today.getFullYear() === 2025 &&
+        today.getMonth() === 3 && // April is 3 (0-indexed)
+        today.getDate() === 26;
+
+      if (!isAllowedDate) {
+        document.body.innerHTML = `
+        <div style="padding: 100px; font-size: 1.5em;">
+          Patience! work only on  <strong>April 29, 2025</strong>.
+        </div>
+      `;
+      } else {
+        const noBtn = document.getElementById("noButton");
+
+        function spawnYesButtons() {
+          const count = Math.floor(Math.random() * 10);
+          for (let i = 0; i < count; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = "Yes";
+            btn.className = "yes-button";
+
+            const btnWidth = 100;
+            const btnHeight = 50;
+            const x = Math.random() * (window.innerWidth - btnWidth);
+            const y = Math.random() * (window.innerHeight - btnHeight - 20);
+            const rotation = Math.floor(Math.random() * 360);
+            const scaleX = Math.random() > 0.5 ? 1 : -1;
+
+            btn.style.left = `${x}px`;
+            btn.style.top = `${y}px`;
+            btn.style.transform = `rotate(${rotation}deg) scaleX(${scaleX})`;
+
+            btn.addEventListener("click", () => {
+              window.location.href = "test2.html";
+            });
+
+            document.body.appendChild(btn);
+          }
+        }
+
+        noBtn.addEventListener("click", spawnYesButtons);
+      }
+    </script>
+  </body>
+</html>
